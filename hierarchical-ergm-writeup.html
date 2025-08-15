@@ -148,7 +148,7 @@ window.Quarto = {
   <li><a href="#my-current-thoughts" id="toc-my-current-thoughts" class="nav-link" data-scroll-target="#my-current-thoughts"><span class="header-section-number">5</span> My Current Thoughts</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">6</span> References</a></li>
   </ul>
-</nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="hierarchical-ergm-writeup.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </div>
 <main class="content" id="quarto-document-content">
 
@@ -219,10 +219,10 @@ window.Quarto = {
 <p><strong>Empirical Case Study (Study 1):</strong> 121 networks (school classes), nested in 15 different schools, across three different countries (Germany, Italy, and Portugal). Importantly, this dataset is quite unique because it has several hierarchical levels (classes, schools, and countries), allowing us to compare how partial pooling of estimates works on multiple clustering levels <span class="citation" data-cites="Tolochko2024">(<a href="#ref-Tolochko2024" role="doc-biblioref">Tolochko &amp; Boomgaarden, 2024</a>)</span>.</p>
 <p><strong>Simulated Case Study (Study 2):</strong> Let <span class="math inline">\(\theta_{ij}\)</span> denote the <span class="math inline">\(i\)</span>th network coefficient for group <span class="math inline">\(j\)</span>, <span class="math inline">\(\mu\)</span> denote the “grand mean” of the coefficient, <span class="math inline">\(\Delta_j\)</span> denote the group effects, and <span class="math inline">\(\delta_j\)</span> denote the variance of the group effect for group <span class="math inline">\(j\)</span>. The model for the input parameters of the Monte Carlo simulation is the following:</p>
 <p><span class="math display">\[
-\begin{align}
+\begin{aligned}
 \theta_{ij} &amp;= \mu_i + \Delta_j \\
 \Delta_i &amp;\sim \mathcal{N}(0, \delta_j)
-\end{align}
+\end{aligned}
 \]</span></p>
 <p>The realized <span class="math inline">\(\theta\)</span> coefficients are then fed into the ERGM simulation algorithm to simulate random networks <span class="citation" data-cites="Tolochko2024">(<a href="#ref-Tolochko2024" role="doc-biblioref">Tolochko &amp; Boomgaarden, 2024</a>)</span>. They vary the input parameters (number of groups, group size, nodes per network, and group effect size). See Table 1 for a summary of the variations in the input parameters.</p>
 </section>
@@ -348,10 +348,10 @@ mu_(Intercept)_edges -2.941 -2.685 -2.545 -2.415 -2.189
 </div>
 <p>In order, the summary output shows the posterior mean, standard deviation, naive standard error, time-series standard error, and quantiles of each of the parameters in the model (2.5%, 25%, 50%, 75%,97.5%) for the edges parameter. The summary output also provides the acceptance rates for the individual-level (theta) and group-level (mu) parameters - more on this below.</p>
 <p>The default (hyper)priors on the group-level parameters <span class="math inline">\((\mu, \Sigma_\theta)\)</span> are: <span class="math display">\[
-\begin{align}
+\begin{aligned}
 \mu &amp;\sim \mathcal{N}(0, 100I) \\
 \Sigma_\theta &amp;\sim \mathcal{W}^{-1}(p+1,~I)
-\end{align}
+\end{aligned}
 \]</span></p>
 <p>where <span class="math inline">\(p\)</span> is the number of summary statistics in the model and <span class="math inline">\(\mathcal{W}^{-1}\)</span> denotes an inverse-Wishart distribution. These can be manually specified using the <code>set_priors</code> function in the <code>multibergm</code> package.</p>
 <div class="cell">
@@ -674,7 +674,7 @@ mu_(Intercept)_edges -2.941 -2.685 -2.545 -2.415 -2.189
 <section id="my-current-thoughts" class="level1" data-number="5">
 <h1 data-number="5"><span class="header-section-number">5</span> My Current Thoughts</h1>
 <ul>
-<li><p>Based on what I could find, it seems like if we want to do a something similar to a traditional “mixed effects” approach from regression and not write the estimation algorithm from scratch, our best bet would be to use the <code>mulitbergm</code> package in order to obtain network-level random effects. However, this package has not been updated in at least a year and hasn’t been used by that many others (based on Google scholar citations).</p></li>
+<li><p>Based on what I could find, it seems like if we want to do a something similar to a traditional “mixed effects” approach from regression and not write the estimation algorithm from scratch, our best bet would be to use the <code>mulitbergm</code> package in order to obtain network-level random effects. However, this package has not been updated in at least a year and I don’t think has been used by many others (based on Google scholar citations).</p></li>
 <li><p>That said, there seems to be evidence towards using a two-step modeling hierarchical Bayesian (or mixed effects) approach to partially pool across multiple networks (e.g., based on <span class="citation" data-cites="Tolochko2024">Tolochko &amp; Boomgaarden (<a href="#ref-Tolochko2024" role="doc-biblioref">2024</a>)</span>). The downside, though, of these approach is we would have to cull the number of covariates we have in our ERGM since our class networks might be only 15 students or so. I am also unclear how (or whether) the two-step modeling approach accounts for the two levels of statistical uncertainty.</p></li>
 </ul>
 <p><strong>Note:</strong> I don’t think these papers are super relevant (I found them when trying to find methods for modeling populations of networks with ERGMs where there are network-level random effects). However, just in case they are helpful in some way (e.g., maybe doing an “integrative approach” but with group-level random effect on <code>classid</code>):</p>

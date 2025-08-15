@@ -2,10 +2,13 @@
 title: "Hierarchical ERGM Analysis"
 author: 'Sara Colando'
 date: today
+date-format: long
 format:
-  pdf:
+  html:
     number-sections: true
-    #toc: true
+    toc: true
+  pdf:
+    pdf-engine: xelatex
 bibliography: references.bib
 csl: apa.csl
 execute: 
@@ -292,7 +295,7 @@ Specifically, @Fan2025 use NPE to estimate "local parameters for individual netw
 
 # My Current Thoughts
 
-- Based on what I could find, it seems like if we want to do a something similar to a traditional "mixed effects" approach from regression and not write the estimation algorithm from scratch, our best bet would be to use the `mulitbergm` package in order to obtain network-level random effects. However, this package has not been updated in at least a year and hasn't been used by that many others (based on Google scholar citations).
+- Based on what I could find, it seems like if we want to do a something similar to a traditional "mixed effects" approach from regression and not write the estimation algorithm from scratch, our best bet would be to use the `mulitbergm` package in order to obtain network-level random effects. However, this package has not been updated in at least a year and I don't think has been used by many others (based on Google scholar citations).
 
 - That said, there seems to be evidence towards using a two-step modeling hierarchical Bayesian (or mixed effects) approach to partially pool across multiple networks (e.g., based on @Tolochko2024). The downside, though, of these approach is we would have to cull the number of covariates we have in our ERGM since our class networks might be only 15 students or so. I am also unclear how (or whether) the two-step modeling approach accounts for the two levels of statistical uncertainty.
 
